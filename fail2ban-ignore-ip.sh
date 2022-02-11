@@ -1,6 +1,6 @@
 #!/bin/bash
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# Fail2ban IP Remove Ban / Unban Script
+# Fail2ban IP Ignore IP Script
 # Version 3.0
 # Copyright (c) Adrian Jon Kriel : root-at-extremecooling-dot-org
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -67,7 +67,7 @@ check_net_boundary() {
 function xshok_unban_from_jails() { #ipaddress
   ipaddress="$1";
   for f2bjail in $f2bjails_array ; do
-    result="$(fail2ban-client set "$f2bjail" unbanip "$ipaddress" 2>&1)"
+    result="$(fail2ban-client set "$f2bjail" addignoreip "$ipaddress" 2>&1)"
     if [[ "$result" != *"NOK"* ]]; then
       echo "Removed $ipaddress ban from $f2bjail"
     fi
