@@ -6,11 +6,11 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 ####################
 #
-# Remove Ban / Unban an IP from all Fail2ban Jails
-# Usage: fail2ban-remove-ban.sh <ip-address-to-unban>
+# Add ignore IP to all Fail2ban Jails
+# Usage: fail2ban-ignore-ip.sh <ip-address-to-unban>
 #
-# Remove Ban of multiple IP addresses
-# Usage: fail2ban-remove-ban.sh <ip-1> <ip-2> <ip-3>
+# add multiple IP addresses
+# Usage: fail2ban-ignore-ip.sh <ip-1> <ip-2> <ip-3>
 #
 # Note: Script will expand CIDR addresses, eg 192.168.0.1/24
 #
@@ -69,7 +69,7 @@ function xshok_unban_from_jails() { #ipaddress
   for f2bjail in $f2bjails_array ; do
     result="$(fail2ban-client set "$f2bjail" addignoreip "$ipaddress" 2>&1)"
     if [[ "$result" != *"NOK"* ]]; then
-      echo "Removed $ipaddress ban from $f2bjail"
+      echo "$ipaddress is added to $f2bjail"
     fi
   done
 }
@@ -120,7 +120,7 @@ else
 fi
 
 
-echo "Removing bans from the following Jails for ${ip_array[*]}"
+echo "add IPs to the following Jails for ${ip_array[*]}"
 echo "$f2bjails_array"
 
 for ip in "${ip_array[@]}" ; do
